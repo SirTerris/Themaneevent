@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Mane Event Online</title>
+</head>
+<body>
+  <h1>🐴 The Mane Event Online (Multiplayer Test)</h1>
+  <button onclick="joinShow()">Join a Live Show</button>
+  <div id="output"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function joinShow() {
+      const horse = {
+        name: "Testy McTestface",
+        stats: {
+          Jumping: 50,
+          Speed: 60,
+          Endurance: 55,
+          Obedience: 70,
+          Potential: 10
+        }
+      };
+      socket.emit("joinShow", horse);
+    }
+
+    socket.on("showResult", (data) => {
+      document.getElementById("output").innerHTML = `<p>${data.message}</p>`;
+    });
+  </script>
+</body>
+</html>
